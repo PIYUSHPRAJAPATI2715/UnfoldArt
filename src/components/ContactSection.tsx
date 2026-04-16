@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Send, MessageCircle } from "lucide-react";
+import { Send, Instagram } from "lucide-react";
 import { useState } from "react";
 
 export function ContactSection() {
@@ -10,15 +10,15 @@ export function ContactSection() {
     const [subject, setSubject] = useState("");
     const [message, setMessage] = useState("");
 
-    const handleWhatsAppSubmit = (e: React.FormEvent) => {
+    const handleInstagramSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Format the message for WhatsApp
-        const waNumber = "917877172266";
-        const formattedMessage = `*New Inquiry from UnfoldArt Website*%0A%0A*Name:* ${name}%0A*Email:* ${email}%0A*Subject:* ${subject || "N/A"}%0A*Message:* ${message}`;
-
-        // Open WhatsApp in a new tab
-        window.open(`https://wa.me/${waNumber}?text=${formattedMessage}`, '_blank');
+        // Instagram handle
+        const igHandle = "unfolded_art_2";
+        
+        // Open Instagram Direct Message in a new tab
+        // Note: ig.me is a short link for Instagram profiles/messages
+        window.open(`https://ig.me/m/${igHandle}`, '_blank');
 
         // Optional: clear the form
         setName("");
@@ -36,9 +36,12 @@ export function ContactSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8 }}
-                    className="glass rounded-3xl p-6 sm:p-8 md:p-12 shadow-xl"
+                    className="glass rounded-3xl p-6 sm:p-8 md:p-12 shadow-2xl relative overflow-hidden"
                 >
-                    <div className="text-center mb-10 space-y-4">
+                    {/* Decorative background element for the card */}
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--color-accent)] opacity-5 blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+
+                    <div className="text-center mb-10 space-y-4 relative z-10">
                         <h2 className="text-[var(--color-accent)] font-semibold tracking-wider uppercase text-sm">
                             Let's Connect
                         </h2>
@@ -46,11 +49,11 @@ export function ContactSection() {
                             Interested in a piece?
                         </h3>
                         <p className="text-foreground/70 text-base md:text-lg max-w-xl mx-auto text-balance">
-                            Reach out to discuss commissions, purchase inquiries, or simply to say hello. Messages will be sent directly to my WhatsApp!
+                            Reach out to discuss commissions, purchase inquiries, or simply to say hello. Messages will be directed to my Instagram!
                         </p>
                     </div>
 
-                    <form className="space-y-6" onSubmit={handleWhatsAppSubmit}>
+                    <form className="space-y-6 relative z-10" onSubmit={handleInstagramSubmit}>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2">
                                 <label htmlFor="name" className="text-sm font-medium text-foreground">Name</label>
@@ -59,7 +62,7 @@ export function ContactSection() {
                                     id="name"
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
-                                    className="w-full px-4 py-3 rounded-xl bg-background border border-foreground/10 focus:border-[var(--color-accent)] focus:ring-1 focus:ring-[var(--color-accent)] outline-none transition-all placeholder:text-foreground/30"
+                                    className="w-full px-4 py-3 rounded-xl bg-background border border-foreground/10 focus:border-[var(--color-accent)] focus:ring-2 focus:ring-[var(--color-accent)]/20 outline-none transition-all placeholder:text-foreground/30"
                                     placeholder="Your Name"
                                     required
                                 />
@@ -71,7 +74,7 @@ export function ContactSection() {
                                     id="email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="w-full px-4 py-3 rounded-xl bg-background border border-foreground/10 focus:border-[var(--color-accent)] focus:ring-1 focus:ring-[var(--color-accent)] outline-none transition-all placeholder:text-foreground/30"
+                                    className="w-full px-4 py-3 rounded-xl bg-background border border-foreground/10 focus:border-[var(--color-accent)] focus:ring-2 focus:ring-[var(--color-accent)]/20 outline-none transition-all placeholder:text-foreground/30"
                                     placeholder="your@email.com"
                                     required
                                 />
@@ -85,7 +88,7 @@ export function ContactSection() {
                                 id="subject"
                                 value={subject}
                                 onChange={(e) => setSubject(e.target.value)}
-                                className="w-full px-4 py-3 rounded-xl bg-background border border-foreground/10 focus:border-[var(--color-accent)] focus:ring-1 focus:ring-[var(--color-accent)] outline-none transition-all placeholder:text-foreground/30"
+                                className="w-full px-4 py-3 rounded-xl bg-background border border-foreground/10 focus:border-[var(--color-accent)] focus:ring-2 focus:ring-[var(--color-accent)]/20 outline-none transition-all placeholder:text-foreground/30"
                                 placeholder="E.g., Commission Inquiry"
                             />
                         </div>
@@ -97,19 +100,21 @@ export function ContactSection() {
                                 rows={5}
                                 value={message}
                                 onChange={(e) => setMessage(e.target.value)}
-                                className="w-full px-4 py-3 rounded-xl bg-background border border-foreground/10 focus:border-[var(--color-accent)] focus:ring-1 focus:ring-[var(--color-accent)] outline-none transition-all resize-none placeholder:text-foreground/30"
+                                className="w-full px-4 py-3 rounded-xl bg-background border border-foreground/10 focus:border-[var(--color-accent)] focus:ring-2 focus:ring-[var(--color-accent)]/20 outline-none transition-all resize-none placeholder:text-foreground/30"
                                 placeholder="How can I help you?"
                                 required
                             ></textarea>
                         </div>
 
-                        <button
+                        <motion.button
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
                             type="submit"
-                            className="w-full flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#128C7E] text-white px-8 py-4 rounded-xl font-medium transition-all group hover:shadow-lg shadow-[#25D366]/20"
+                            className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] hover:opacity-90 text-white px-8 py-4 rounded-xl font-medium transition-all group hover:shadow-xl shadow-red-500/20"
                         >
-                            <MessageCircle className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                            Send Message on WhatsApp
-                        </button>
+                            <Instagram className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                            Send Message on Instagram
+                        </motion.button>
                     </form>
 
                 </motion.div>

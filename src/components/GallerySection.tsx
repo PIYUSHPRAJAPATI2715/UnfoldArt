@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 
 // Placeholder for the 11 images
@@ -49,13 +50,14 @@ export function GallerySection() {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: "-100px" }}
-                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10"
                 >
                     {galleryItems.map((item) => (
                         <motion.div
                             key={item.id}
                             variants={itemVariants}
-                            className="group relative aspect-square rounded-2xl overflow-hidden cursor-pointer"
+                            whileHover={{ y: -10 }}
+                            className="group relative aspect-[4/5] sm:aspect-square rounded-3xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
                         >
                             <Image
                                 src={item.src}
@@ -66,27 +68,35 @@ export function GallerySection() {
                             />
 
                             {/* Hover Overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                                <span className="text-[var(--color-accent)] text-sm font-medium mb-1 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-8">
+                                <motion.span 
+                                    initial={{ opacity: 0, x: -10 }}
+                                    whileHover={{ opacity: 1, x: 0 }}
+                                    className="text-[var(--color-accent)] text-xs font-bold tracking-[0.2em] uppercase mb-2"
+                                >
                                     {item.category}
-                                </span>
-                                <h4 className="text-white font-playfair text-xl font-bold translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">
+                                </motion.span>
+                                <h4 className="text-white font-playfair text-2xl font-bold">
                                     {item.title}
                                 </h4>
+                                <div className="h-1 w-0 group-hover:w-12 bg-[var(--color-accent)] mt-4 transition-all duration-500"></div>
                             </div>
                         </motion.div>
                     ))}
                 </motion.div>
 
-                <div className="mt-16 text-center">
-                    <a
+                <div className="mt-20 text-center">
+                    <motion.a
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                         href="https://www.instagram.com/unfolded_art_2"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center px-8 py-4 rounded-full border border-[var(--color-accent)] text-[var(--color-accent)] hover:bg-[var(--color-accent)] hover:text-white transition-all font-medium"
+                        className="inline-flex items-center justify-center px-10 py-4 rounded-full bg-transparent border-2 border-[var(--color-accent)] text-[var(--color-accent)] hover:bg-[var(--color-accent)] hover:text-white transition-all duration-300 font-bold tracking-wide uppercase text-sm group"
                     >
-                        View More on Instagram
-                    </a>
+                        View Full Gallery
+                        <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </motion.a>
                 </div>
             </div>
         </section>
